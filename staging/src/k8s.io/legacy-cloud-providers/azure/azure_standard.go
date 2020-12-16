@@ -76,8 +76,14 @@ var (
 	providerIDRE       = regexp.MustCompile(`.*/subscriptions/(?:.*)/Microsoft.Compute/virtualMachines/(.+)$`)
 	backendPoolIDRE    = regexp.MustCompile(`^/subscriptions/(?:.*)/resourceGroups/(?:.*)/providers/Microsoft.Network/loadBalancers/(.+)/backendAddressPools/(?:.*)`)
 	nicResourceGroupRE = regexp.MustCompile(`.*/subscriptions/(?:.*)/resourceGroups/(.+)/providers/Microsoft.Network/networkInterfaces/(?:.*)`)
-	nicIDRE            = regexp.MustCompile(`/subscriptions/(?:.*)/resourceGroups/(?:.+)/providers/Microsoft.Network/networkInterfaces/(.+)-nic-(.+)/ipConfigurations/(?:.*)`)
-	vmasIDRE           = regexp.MustCompile(`/subscriptions/(?:.*)/resourceGroups/(?:.*)/providers/Microsoft.Compute/availabilitySets/(.+)`)
+	// TODO:
+	// Upstream PR https://github.com/kubernetes/kubernetes/pull/95542 added new networkInterfaces ID
+	// string requirements that are not compatible with current OCP naming conventions from the installer.
+	// The "networkInterfaces/(.+)-nic-(.+)/" section of the regex has been nerfed to "networkInterfaces/(.+)-nic"
+	// while we investigate if the upstream regex will pose concerns with regards to upgrades.
+	// See https://bugzilla.redhat.com/show_bug.cgi?id=1908389.
+	nicIDRE  = regexp.MustCompile(`/subscriptions/(?:.*)/resourceGroups/(?:.+)/providers/Microsoft.Network/networkInterfaces/(.+)-nic/ipConfigurations/(?:.*)`)
+	vmasIDRE = regexp.MustCompile(`/subscriptions/(?:.*)/resourceGroups/(?:.*)/providers/Microsoft.Compute/availabilitySets/(.+)`)
 )
 
 // getStandardMachineID returns the full identifier of a virtual machine.
