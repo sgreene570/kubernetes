@@ -198,14 +198,8 @@ func (c *Client) listVMSSVM(ctx context.Context, resourceGroupName string, virtu
 		return result, retry.GetError(resp, err)
 	}
 
-	for {
-		result = append(result, page.Values()...)
-
-		// Abort the loop when there's no nextLink in the response.
-		if to.String(page.Response().NextLink) == "" {
-			break
-		}
-
+	for page.NotDone() {
+		result = append(result, *page.Response().Value...)
 		if err = page.NextWithContext(ctx); err != nil {
 			klog.V(5).Infof("Received error in %s: resourceID: %s, error: %s", "vmssvm.list.next", resourceID, err)
 			return result, retry.GetError(page.Response().Response.Response, err)

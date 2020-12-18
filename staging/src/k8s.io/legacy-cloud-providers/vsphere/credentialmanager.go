@@ -53,7 +53,7 @@ type SecretCache struct {
 
 type Credential struct {
 	User     string `gcfg:"user"`
-	Password string `gcfg:"password" datapolicy:"password"`
+	Password string `gcfg:"password"`
 }
 
 type SecretCredentialManager struct {

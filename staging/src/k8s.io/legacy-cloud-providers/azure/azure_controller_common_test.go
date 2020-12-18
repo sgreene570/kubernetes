@@ -294,7 +294,7 @@ func TestCommonDetachDisk(t *testing.T) {
 			expectedErr: false,
 		},
 		{
-			desc:        "no error shall be returned if the disk exists",
+			desc:        "no error shall be returned if the disk exsists",
 			vmList:      map[string]string{"vm1": "PowerState/Running"},
 			nodeName:    "vm1",
 			diskName:    "disk1",

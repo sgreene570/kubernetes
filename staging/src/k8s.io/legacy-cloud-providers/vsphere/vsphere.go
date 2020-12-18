@@ -116,7 +116,7 @@ type VirtualCenterConfig struct {
 	// vCenter username.
 	User string `gcfg:"user"`
 	// vCenter password in clear text.
-	Password string `gcfg:"password" datapolicy:"password"`
+	Password string `gcfg:"password"`
 	// vCenter port.
 	VCenterPort string `gcfg:"port"`
 	// Datacenter in which VMs are located.
@@ -140,7 +140,7 @@ type VSphereConfig struct {
 		// vCenter username.
 		User string `gcfg:"user"`
 		// vCenter password in clear text.
-		Password string `gcfg:"password" datapolicy:"password"`
+		Password string `gcfg:"password"`
 		// Deprecated. Use VirtualCenter to specify multiple vCenter Servers.
 		// vCenter IP.
 		VCenterIP string `gcfg:"server"`

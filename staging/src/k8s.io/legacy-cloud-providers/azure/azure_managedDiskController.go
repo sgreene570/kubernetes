@@ -297,10 +297,6 @@ func (c *ManagedDiskController) ResizeDisk(diskURI string, oldSize resource.Quan
 		return newSizeQuant, nil
 	}
 
-	if result.DiskProperties.DiskState != compute.Unattached {
-		return oldSize, fmt.Errorf("azureDisk - disk resize is only supported on Unattached disk, current disk state: %s, already attached to %s", result.DiskProperties.DiskState, to.String(result.ManagedBy))
-	}
-
 	diskParameter := compute.DiskUpdate{
 		DiskUpdateProperties: &compute.DiskUpdateProperties{
 			DiskSizeGB: &requestGiB,
@@ -355,7 +351,7 @@ func (c *Cloud) GetAzureDiskLabels(diskURI string) (map[string]string, error) {
 	}
 
 	labels := map[string]string{
-		LabelFailureDomainBetaRegion: c.Location,
+		v1.LabelFailureDomainBetaRegion: c.Location,
 	}
 	// no azure credential is set, return nil
 	if c.DisksClient == nil {
@@ -384,6 +380,6 @@ func (c *Cloud) GetAzureDiskLabels(diskURI string) (map[string]string, error) {
 
 	zone := c.makeZone(c.Location, zoneID)
 	klog.V(4).Infof("Got zone %q for Azure disk %q", zone, diskName)
-	labels[LabelFailureDomainBetaZone] = zone
+	labels[v1.LabelFailureDomainBetaZone] = zone
 	return labels, nil
 }

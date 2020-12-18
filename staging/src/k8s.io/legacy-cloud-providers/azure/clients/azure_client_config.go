@@ -26,7 +26,6 @@ import (
 
 // ClientConfig contains all essential information to create an Azure client.
 type ClientConfig struct {
-	CloudName               string
 	Location                string
 	SubscriptionID          string
 	ResourceManagerEndpoint string

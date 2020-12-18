@@ -37,7 +37,7 @@ import (
 type VSphereConnection struct {
 	Client            *vim25.Client
 	Username          string
-	Password          string `datapolicy:"password"`
+	Password          string
 	Hostname          string
 	Port              string
 	CACert            string
